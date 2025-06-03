@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoExplore</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+  <style>
+    /* Estilos para mensajes flash */
+    .flash-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .flash-message.success {
+        border-left: 4px solid #4CAF50;
+        color: #2e7d32;
+    }
+
+    .flash-message.success::before {
+        content: '';
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-image: url('https://enfarma.lat/images/noticias/2021-12/palomita_verde.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -60%);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash-message success">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <header>
+    <div class="logo">GoExplore</div>
+    <nav>
+      <a href="#descubrir">Descubre</a>
+      <a href="#aprende">Aprende</a>
+      <a href="#comunidad">Comunidad</a>
+      <a href="#footer">About</a>
+      <a href="{{ url_for('login') }}" class="login-button">Iniciar Sesión</a>
+    </nav>
+  </header>
+
+  <!-- Modal de Inicio de Sesión -->
+  <div class="modal-login" id="modalLogin">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Iniciar Sesión</h2>
+      <form class="login-form" action="{{ url_for('login') }}" method="POST">
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <p class="register-link">¿No tienes cuenta? <a href="{{ url_for('registro') }}">Registrarte</a></p>
+    </div>
+  </div>
+
+  <section class="hero-text">
+    <h1>Arte, sabor y aventura: tu próxima historia comienza aquí.</h1>
+  </section>
+
+  <section id="descubrir" class="discover-section">
+    <h2>¿Qué quieres <span>descubrir hoy?</span></h2>
+    <p>Conoce el arte, la historia y los sabores que guarda cada rincón<br>Explora lo inesperado.</p>
+
+    <div class="discover-grid">
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3697/3697962.png" alt="Artesanías">
+        <h3>Artesanías</h3>
+        <p>Cada pieza una historia</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/1046/1046857.png" alt="Gastronomía">
+        <h3>Gastronomía</h3>
+        <p>Cocina hecha de historia</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/854/854878.png" alt="Hospedaje">
+        <h3>Hospedaje</h3>
+        <p>Descansa como rey</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/684/684908.png" alt="Áreas Naturales">
+        <h3>Áreas Naturales</h3>
+        <p>La tierra en su estado más puro</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/3462/3462412.png" alt="Sitios Arqueológicos">
+        <h3>Sitios Arqueológicos</h3>
+        <p>El pasado sigue vivo aquí</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png" alt="Reseñas">
+        <h3>Reseñas</h3>
+        <p>La voz de quienes ya estuvieron</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/869/869636.png" alt="Playas">
+        <h3>Playas</h3>
+        <p>Sol, arena y mar</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/808/808439.png" alt="Flora y Fauna">
+        <h3>Flora y Fauna</h3>
+        <p>Colores y vida por doquier</p>
+      </div>
+      <div class="discover-card">
+        <img src="https://cdn-icons-png.flaticon.com/128/3870/3870014.png" alt="Recorridos 360°">
+        <h3>Recorridos 360°</h3>
+        <p>Explora desde casa</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="aprende" class="learn-section">
+    <h2>¿Cuántos te faltan por conocer?</h2>
+    <p>Los sitios que no te puedes perder si quieres entender de verdad este lugar</p>
+
+    <div class="learn-grid">
+      <div class="learn-card">
+        <div class="tag">Saber más</div>
+        <img src="https://www.mexicodesconocido.com.mx/wp-content/uploads/2010/07/Catemaco-laguna-dia-Veracruz-900x507.jpg" alt="Catemaco, Veracruz">
+        <div class="learn-card-content">
+          <h3>Catemaco, Veracruz</h3>
+          <p>Donde la magia de la naturaleza se une a los misterios ancestrales</p>
+        </div>
+      </div>
+
+      <div class="learn-card">
+        <div class="tag">Saber más</div>
+        <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTtB6OihQ1AcMVn6I_w8IHo6U7-bN96H3nE7bknF_qbhQ3ZZ_bi" alt="Veracruz, Veracruz">
+        <div class="learn-card-content">
+          <h3>Veracruz, Veracruz</h3>
+          <p>La ciudad que vibra con el danzón, el mar y la historia</p>
+        </div>
+      </div>
+
+      <div class="learn-card">
+        <div class="tag">Saber más</div>
+        <img src="https://lopezdoriga.com/wp-content/uploads/2016/03/Cumbre-Tajin3.jpg" alt="Papantla, Veracruz">
+        <div class="learn-card-content">
+          <h3>Papantla, Veracruz</h3>
+          <p>Cuna de la vainilla y los voladores que tocan el cielo</p>
+        </div>
+      </div>
+
+      <div class="learn-card">
+        <div class="tag">Saber más</div>
+        <img src="https://hipotecariahogar.com/wp-content/uploads/2021/04/Coatepec.jpg" alt="Xalapa, Veracruz">
+        <div class="learn-card-content">
+          <h3>Xalapa, Veracruz</h3>
+          <p>Donde florecen las expresiones culturales más intensas</p>
+        </div>
+      </div>
+
+      <div class="learn-card">
+        <div class="tag">Saber más</div>
+        <img src="https://diarioistmo.blob.core.windows.net/images/2023/10/03/orizaba-pueblo-magico-145804-focus-0-0-732-549.jpg" alt="Orizaba, Veracruz">
+        <div class="learn-card-content">
+          <h3>Orizaba, Veracruz</h3>
+          <p>La ciudad de las altas montañas y el arte escondido</p>
+        </div>
+      </div>
+
+      <div class="learn-card">
+        <div class="tag">Saber más</div>
+        <img src="https://www.lugaresturisticosenmexico.com/wp-content/uploads/2022/06/Xico-Veracruz-Pueblo-Ma%CC%81gico-Centro.jpg" alt="San Andrés Tuxtla">
+        <div class="learn-card-content">
+          <h3>San Andrés Tuxtla</h3>
+          <p>Volcanes dormidos, selvas vivas, y sabores ancestrales</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="importancia-cultural" class="importance-section">
+    <h2>Importancia <span>Cultural</span></h2>
+    <p>Veracruz es uno de los estados de México más representativos por su riqueza natural, social, histórica y cultural.</p>
+
+    <div class="importance-grid">
+      <div class="importance-card">
+        <div class="importance-icon">
+          <img src="https://blob.diariodelistmo.com/images/2024/09/26/comunidades-indigenas-congreso-focus-0-0-732-549.jpg" alt="Diversidad">
+        </div>
+        <h3>Diversidad</h3>
+        <p>Cerca de 700,000 hablantes de lenguas indígenas (10% de la población) pertenecientes a grupos como los Nahuas, Totonacas, Huastecos y Popolucas.</p>
+      </div>
+
+      <div class="importance-card">
+        <div class="importance-icon">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9eXMz9l5HgrY6s245s2tvwjxGAIAzVqhNDw&s" alt="Ecosistema">
+        </div>
+        <h3>Ecosistema</h3>
+        <p>Veracruz alberga especies emblemáticas como los seis felinos silvestres de México, cinco especies de tortuga marina, manatíes en el Sistema Lagunar de Alvarado, y el mono aullador en la selva de Los Tuxtlas.</p>
+      </div>
+
+      <div class="importance-card">
+        <div class="importance-icon">
+          <img src="https://mexicotrip.mx/uploads/images/202503/image_870x_67c4b7c332e5b.webp" alt="Reservas naturales">
+        </div>
+        <h3>Reservas naturales</h3>
+        <p>En todo el estado hay 128 especies naturales protegidas en total (19 estatales, 15 federales, 9 sitios Ramsar y 85 áreas privadas).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="destinations-section">
+    <div class="destinations-header">
+      <span class="destinations-icon">🌎</span>
+      <h2>Destinos</h2>
+      <p>Explorando los ecosistemas acuáticos que hacen de Veracruz un tesoro natural.</p>
+    </div>
+
+    <div class="destinations-grid">
+      <div class="destination-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfgQyktKU5a4D2rAcWrhqrFKvQRgKEBD2KyoyDo12d8z3xdG2z" alt="Pancho poza">
+        <div class="destination-info">
+          <h3>Pancho poza</h3>
+          <p>Altotonga, Veracruz</p>
+        </div>
+      </div>
+
+      <div class="destination-card">
+        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTs9UwhUl9hVlQVGzs27EQhuXNvWpnqKYTmHqXVaW5Lm497UYR3" alt="Cinco Chorros">
+        <div class="destination-info">
+          <h3>Cinco Chorros</h3>
+          <p>Ángel R. Cabada, Veracruz</p>
+        </div>
+      </div>
+
+      <div class="destination-card">
+        <img src="https://static.wixstatic.com/media/2a70ea_bab5f0c7d03c48e2898acc1db1fdb9c0~mv2.png/v1/fill/w_567,h_425,al_c,q_85,enc_avif,quality_auto/2a70ea_bab5f0c7d03c48e2898acc1db1fdb9c0~mv2.png" alt="Playa escondida">
+        <div class="destination-info">
+          <h3>Playa escondida</h3>
+          <p>San Andrés Tuxtla, Veracruz</p>
+        </div>
+      </div>
+
+      <div class="destination-card">
+        <img src="https://blob.diariodelistmo.com/images/2022/05/31/soteapan.jpg" alt="Cascada de San Pedro Soteapan">
+        <div class="destination-info">
+          <h3>Cascada de San Pedro Soteapan</h3>
+          <p>San Pedro Soteapan, Veracruz</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="comunidad" class="comunidad-section">
+    <h2>Conoce la opinión de otros viajeros</h2>
+    <p class="subtitulo">Comparte ese sabor, paisaje o momento que guardas en el corazón.</p>
+
+    <div class="contenedor-tarjetas">
+      <div class="tarjeta-opinion">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/036/075/931/small/ai-generated-portrait-of-handsome-fashion-man-model-in-suit-posing-on-street-photo.jpg" alt="Diego Sanchez">
+        <h3>Diego Sanchez</h3>
+        <p class="lugar">Visited: Catemaco, Ver</p>
+        <hr>
+        <p class="comentario">"Catemaco es único. Navegamos en lancha por la Laguna de Catemaco y visitamos la Isla de los Monos."</p>
+      </div>
+
+      <div class="tarjeta-opinion">
+        <img src="https://i.pravatar.cc/100?img=30" alt="Maria Gonzalez">
+        <h3>Maria Gonzalez</h3>
+        <p class="lugar">Visited: Veracruz, Ver</p>
+        <hr>
+        <p class="comentario">"Visité el Acuario y quedé fascinada con la diversidad marina que alberga este acuario."</p>
+      </div>
+
+      <div class="tarjeta-opinion">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsz5P0cqpCfXFSh8R2dNjugC5lsek15Q4ojg&s" alt="Ricardo Vargas">
+        <h3>Ricardo Vargas</h3>
+        <p class="lugar">Visited: Xalapa, Ver</p>
+        <hr>
+        <p class="comentario">"Xalapa me enamoró con su niebla y cultura. El Museo de Antropología es impresionante."</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer" class="footer">
+    <div class="footer-container">
+      <!-- Columna 1: Información -->
+      <div class="footer-info">
+        <h2>GoExplore</h2>
+        <p class="subtitle">Agencia de viajes</p>
+        <p>Los mejores destinos para tus próximos viajes los encuentras aquí.</p>
+      </div>
+
+      <!-- Columna 2: Menú -->
+      <div class="footer-menu">
+        <h3>Menu</h3>
+        <ul>
+          <li><span>📍</span> Descubre</li>
+          <li><span>🌐</span> Aprende</li>
+          <li><span>🏠</span> Comunidad</li>
+          <li><span>💬</span> About</li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto -->
+      <div class="footer-contact">
+        <h3>Contacto</h3>
+        <div class="contact-icons">
+          <span>📧</span>
+          <span>☎️</span>
+          <span>💬</span>
+        </div>
+
+        <h4>Síguenos</h4>
+        <div class="social-icons">
+          <span>📘</span>
+          <span>📷</span>
+          <span>▶️</span>
+        </div>
+
+        <div class="admin-login">
+          <a href="{{ url_for('admin_login') }}" style="text-decoration: none; color: inherit;">Iniciar Sesión Como Administrador</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const flashMessages = document.querySelectorAll('.flash-message');
+      flashMessages.forEach(function(message) {
+        setTimeout(function() {
+          message.style.opacity = '0';
+          setTimeout(function() {
+            message.remove();
+          }, 500);
+        }, 3000);
+      });
+    });
+  </script>
+</body>
+</html>

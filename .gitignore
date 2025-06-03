@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+env/
+.env
+.venv/
+ENV/
+
+# Base de datos
+instance/
+*.db
+*.sqlite3
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de configuración local
+*.log
+.env.local
+.env.*.local
+
+# Archivos de Google Cloud
+.gcloudignore
+
+# Archivos específicos del proyecto que no son necesarios en producción
+app.yaml
+ver_registros.py
+
+# Archivos de despliegue de otras plataformas
+.gcloudignore 
